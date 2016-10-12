@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/space_normal"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/ivCover"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/cover_height"
+        android:src="@drawable/sample"
+        tools:src="@drawable/sample"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        
+        <TextView
+            android:id="@+id/ivOverview"
+            android:textSize="@dimen/size_normal"
+            android:layout_marginLeft="@dimen/space_small"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Lorem ipsum dolor sit amet, a ac felis. Mauris in dui non dui ultrices tempus. Pellentesque et fermentum nisi, et venenatis urna. Ut tempus velit non ullamcorper semper. Pellentesque vel egestas enim. Proin sed tristique dui. Etiam eget augue est."/>
+        
+    </LinearLayout>
+
+</LinearLayout>
