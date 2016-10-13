@@ -56,12 +56,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(getContext())
                     .load(movie.getPosterPath())
-                    .placeholder(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder_portrait)
                     .into(viewHolder.ivCover);
         } else {
             Glide.with(getContext())
                     .load(movie.getBackdropPath())
-                    .placeholder(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder_landscape)
                     .into(viewHolder.ivCover);
         }
 

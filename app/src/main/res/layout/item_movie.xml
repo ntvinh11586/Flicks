@@ -26,9 +26,9 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/space_small"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/size_huge"
             tools:text="Hello World" />
 
         <TextView

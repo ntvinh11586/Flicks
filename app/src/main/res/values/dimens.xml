@@ -7,4 +7,5 @@
     <dimen name="large_size">20sp</dimen>
     <dimen name="size_normal">16sp</dimen>
     <dimen name="space_normal">16dp</dimen>
+    <dimen name="size_huge">20sp</dimen>
 </resources>
