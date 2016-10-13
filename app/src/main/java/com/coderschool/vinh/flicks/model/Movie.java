@@ -12,13 +12,13 @@ public class Movie {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("overview  ")
+    @SerializedName("overview")
     private String overview;
 
     @SerializedName("poster_path")
     private String posterPath;
 
-    @SerializedName("backgrop_path")
+    @SerializedName("backdrop_path")
     private String backdropPath;
 
     public String getTitle() {

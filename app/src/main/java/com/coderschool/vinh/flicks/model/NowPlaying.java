@@ -13,7 +13,7 @@ public class NowPlaying {
     @SerializedName("results")
     private List<Movie> movies;
 
-    public List<Movie> getMovides() {
+    public List<Movie> getMovies() {
         return movies;
     }
 }
