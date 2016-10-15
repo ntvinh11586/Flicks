@@ -1,15 +1,19 @@
 package com.coderschool.vinh.flicks.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.coderschool.vinh.flicks.MovieApi.MovieApi;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.adapter.MovieAdapter;
+import com.coderschool.vinh.flicks.model.Movie;
 import com.coderschool.vinh.flicks.model.NowPlaying;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar pbLoading;
     private MovieApi mMovieApi;
     private SwipeRefreshLayout swipeContainer;
+    private NowPlaying nowPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         mMovieApi = RetrofitUtils.get(getString(R.string.api_key)).create(MovieApi.class);
         lvMovie = (ListView)findViewById(R.id.lvMovie);
+        lvMovie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = nowPlaying.getMovies().get(position);
+
+                Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
+                intent.putExtra("movie", movie);
+
+                startActivity(intent);
+            }
+        });
+
         pbLoading = (ProgressBar) findViewById(R.id.pdLoading);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -43,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark);
+
 
         fetchMovies();
     }
@@ -62,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleResponse(Response<NowPlaying> response) {
-        lvMovie.setAdapter(new MovieAdapter(this, response.body().getMovies()));
+        nowPlaying = response.body();
+        lvMovie.setAdapter(new MovieAdapter(this, nowPlaying.getMovies()));
 
         pbLoading.setVisibility(GONE);
 

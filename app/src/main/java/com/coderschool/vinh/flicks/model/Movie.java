@@ -3,11 +3,13 @@ package com.coderschool.vinh.flicks.model;
 import com.coderschool.vinh.flicks.utils.Constant;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Vinh on 10/12/2016.
  */
 
-public class Movie {
+public class Movie implements Serializable {
 
     @SerializedName("title")
     private String title;
@@ -20,6 +22,20 @@ public class Movie {
 
     @SerializedName("backdrop_path")
     private String backdropPath;
+
+    @SerializedName("vote_average")
+    private float voteAverage;
+
+    @SerializedName("popularity")
+    private float popularity;
+
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    public float getPopularity() {
+        return popularity;
+    }
 
     public String getTitle() {
         return title;
