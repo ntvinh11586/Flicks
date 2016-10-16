@@ -12,27 +12,31 @@ import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.model.Movie;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TextView tvTitle;
-    private TextView tvOverview;
-    private ImageView ivCover;
-    private RatingBar rbVoteAverage;
-    private TextView tvPopularity;
+
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.tvOverview)
+    TextView tvOverview;
+    @BindView(R.id.ivCover)
+    ImageView ivCover;
+    @BindView(R.id.rbVoteAverage)
+    RatingBar rbVoteAverage;
+    @BindView(R.id.tvPopularity)
+    TextView tvPopularity;
 
     private Movie movie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        ButterKnife.bind(this);
 
         movie = (Movie) getIntent().getSerializableExtra("movie");
-
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvOverview = (TextView) findViewById(R.id.tvOverview);
-        ivCover = (ImageView) findViewById(R.id.ivCover);
-        rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
-        tvPopularity = (TextView) findViewById(R.id.tvPopularity);
 
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
@@ -53,7 +57,5 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         rbVoteAverage.setRating(movie.getVoteAverage());
         tvPopularity.setText(String.valueOf(movie.getPopularity()));
-
-
     }
 }

@@ -19,6 +19,9 @@ import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Vinh on 10/13/2016.
  */
@@ -60,11 +63,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext())
                             .inflate(R.layout.item_normal_rating_movie, parent, false);
-                    normalRatingMovieViewHolder = new NormalRatingMovieViewHolder();
-                    normalRatingMovieViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-                    normalRatingMovieViewHolder.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-                    normalRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCover);
-
+                    normalRatingMovieViewHolder = new NormalRatingMovieViewHolder(convertView);
                     convertView.setTag(normalRatingMovieViewHolder);
                 } else {
                     normalRatingMovieViewHolder = (NormalRatingMovieViewHolder) convertView.getTag();
@@ -80,6 +79,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                 if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                     Glide.with(getContext())
                             .load(movie.getPosterPath())
+                            // I don't want to use this RoundedCorners because it is not fit to my design
 //                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
                             .placeholder(R.drawable.placeholder_portrait)
                             .into(normalRatingMovieViewHolder.ivCover);
@@ -99,9 +99,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext())
                             .inflate(R.layout.item_high_rating_movie, parent, false);
-                    highRatingMovieViewHolder = new HighRatingMovieViewHolder();
-                    highRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCover);
-
+                    highRatingMovieViewHolder = new HighRatingMovieViewHolder(convertView);
                     convertView.setTag(highRatingMovieViewHolder);
                 } else {
                     highRatingMovieViewHolder = (HighRatingMovieViewHolder) convertView.getTag();
@@ -141,13 +139,28 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         return mMovies.get(position);
     }
 
-    private class NormalRatingMovieViewHolder {
-        public TextView tvTitle;
-        public TextView tvOverview;
-        public ImageView ivCover;
+    static class NormalRatingMovieViewHolder {
+
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
+        @BindView(R.id.tvOverview)
+        TextView tvOverview;
+        @BindView(R.id.ivCover)
+        ImageView ivCover;
+
+        NormalRatingMovieViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
-    private class HighRatingMovieViewHolder {
-        public ImageView ivCover;
+    static class HighRatingMovieViewHolder {
+
+        @BindView(R.id.ivCover)
+        ImageView ivCover;
+
+        HighRatingMovieViewHolder(View view) {
+            ButterKnife.bind(this, view);
+
+        }
     }
 }

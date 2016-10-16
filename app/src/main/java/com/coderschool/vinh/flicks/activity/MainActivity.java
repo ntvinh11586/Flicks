@@ -16,24 +16,30 @@ import com.coderschool.vinh.flicks.model.Movie;
 import com.coderschool.vinh.flicks.model.NowPlaying;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView lvMovie;
+    @BindView(R.id.lvMovie)
+    ListView lvMovie;
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
+
     private MovieApi mMovieApi;
-    private SwipeRefreshLayout swipeContainer;
     private NowPlaying nowPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         mMovieApi = RetrofitUtils.getMovie(getString(R.string.api_key)).create(MovieApi.class);
-        lvMovie = (ListView)findViewById(R.id.lvMovie);
+
         lvMovie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -12,14 +12,18 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrailerActivity extends YouTubeBaseActivity {
 
+    @BindView(R.id.player)
+    YouTubePlayerView youTubePlayerView;
+
     private MovieApi mMovieApi;
-    private YouTubePlayerView youTubePlayerView;
     private int id;
     private Youtube youtube;
 
@@ -27,8 +31,7 @@ public class TrailerActivity extends YouTubeBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
-
-        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.player);
+        ButterKnife.bind(this);
 
         id = getIntent().getIntExtra("id", -1);
 
@@ -47,6 +50,7 @@ public class TrailerActivity extends YouTubeBaseActivity {
                                                                 YouTubePlayer youTubePlayer, boolean b) {
 
                                 youTubePlayer.loadVideo(trailer.getSource());
+                                youTubePlayer.setFullscreen(true);
                             }
 
                             @Override
