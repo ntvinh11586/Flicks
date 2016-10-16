@@ -1,6 +1,7 @@
 package com.coderschool.vinh.flicks.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
+import com.coderschool.vinh.flicks.activity.TrailerActivity;
 import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
@@ -50,7 +52,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         int type = getItemViewType(position);
         Movie movie;
         switch (type) {
@@ -63,7 +65,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     normalRatingMovieViewHolder = new NormalRatingMovieViewHolder();
                     normalRatingMovieViewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
                     normalRatingMovieViewHolder.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-                    normalRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCoverBig);
+                    normalRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCover);
 
                     convertView.setTag(normalRatingMovieViewHolder);
                 } else {
@@ -100,7 +102,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     convertView = LayoutInflater.from(getContext())
                             .inflate(R.layout.item_high_rating_movie, parent, false);
                     highRatingMovieViewHolder = new HighRatingMovieViewHolder();
-                    highRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCoverBig);
+                    highRatingMovieViewHolder.ivCover = (ImageView) convertView.findViewById(R.id.ivCover);
 
                     convertView.setTag(highRatingMovieViewHolder);
                 } else {
@@ -113,6 +115,15 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     .load(movie.getBackdropPath())
                     .placeholder(R.drawable.placeholder_landscape)
                         .into(highRatingMovieViewHolder.ivCover);
+
+                highRatingMovieViewHolder.ivCover.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), TrailerActivity.class);
+                        intent.putExtra("id", getItem(position).getId());
+                        getContext().startActivity(intent);
+                    }
+                });
 
                 break;
         }

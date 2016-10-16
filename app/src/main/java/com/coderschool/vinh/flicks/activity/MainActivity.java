@@ -21,8 +21,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.view.View.GONE;
-
 public class MainActivity extends AppCompatActivity {
 
     private ListView lvMovie;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMovieApi = RetrofitUtils.get(getString(R.string.api_key)).create(MovieApi.class);
+        mMovieApi = RetrofitUtils.getMovie(getString(R.string.api_key)).create(MovieApi.class);
         lvMovie = (ListView)findViewById(R.id.lvMovie);
         lvMovie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        pbLoading = (ProgressBar) findViewById(R.id.pdLoading);
+//        pbLoading = (ProgressBar) findViewById(R.id.pdLoading);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -83,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         nowPlaying = response.body();
         lvMovie.setAdapter(new MovieAdapter(this, nowPlaying.getMovies()));
 
-        pbLoading.setVisibility(GONE);
+//        pbLoading.setVisibility(GONE);
 
         if (swipeContainer.isRefreshing())
             swipeContainer.setRefreshing(false);

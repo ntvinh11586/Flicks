@@ -1,8 +1,10 @@
 package com.coderschool.vinh.flicks.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,16 +21,17 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RatingBar rbVoteAverage;
     private TextView tvPopularity;
 
+    private Movie movie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        Movie movie = (Movie) getIntent().getSerializableExtra("movie");
+        movie = (Movie) getIntent().getSerializableExtra("movie");
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvOverview = (TextView) findViewById(R.id.tvOverview);
-        ivCover = (ImageView) findViewById(R.id.ivCoverBig);
+        ivCover = (ImageView) findViewById(R.id.ivCover);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         tvPopularity = (TextView) findViewById(R.id.tvPopularity);
 
@@ -47,6 +50,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .placeholder(R.drawable.placeholder_landscape)
                     .into(ivCover);
         }
+
+        ivCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
+                intent.putExtra("id", movie.getId());
+                startActivity(intent);
+            }
+        });
 
         rbVoteAverage.setRating(movie.getVoteAverage());
         tvPopularity.setText("Popularity: " + String.valueOf(movie.getPopularity()));

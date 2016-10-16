@@ -7,14 +7,29 @@
     android:padding="@dimen/space_normal"
     android:background="@color/colorPrimary">
 
-    <ImageView
+    <RelativeLayout
         android:layout_weight="1"
-        android:id="@+id/ivCoverBig"
         android:layout_width="0dp"
-        android:layout_height="@dimen/cover_height"
-        android:src="@drawable/sample"
-        tools:src="@drawable/sample"
-        android:scaleType="centerCrop" />
+        android:layout_height="@dimen/cover_height">
+
+        <ImageView
+            android:id="@+id/ivCover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cover_height"
+            android:src="@drawable/sample"
+            tools:src="@drawable/sample"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/play_button"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="0dp"

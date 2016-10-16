@@ -16,9 +16,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitUtils {
 
-    public static Retrofit get(String apiKey) {
+    public static Retrofit getMovie(String apiKey) {
         return new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
+                .client(client(apiKey))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    public static Retrofit getTrailer(String apiKey, int id) {
+        return new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL + String.valueOf(id) + "/")
                 .client(client(apiKey))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

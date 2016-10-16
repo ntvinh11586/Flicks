@@ -29,6 +29,13 @@ public class Movie implements Serializable {
     @SerializedName("popularity")
     private float popularity;
 
+    @SerializedName("id")
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
     public float getVoteAverage() {
         return voteAverage;
     }

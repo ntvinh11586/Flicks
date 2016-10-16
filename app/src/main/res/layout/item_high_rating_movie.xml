@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,11 +8,19 @@
     android:background="@color/colorPrimary">
 
     <ImageView
-        android:id="@+id/ivCoverBig"
+        android:id="@+id/ivCover"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cover_height"
         android:src="@drawable/sample"
         tools:src="@drawable/sample"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/play_button"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true" />
+</RelativeLayout>
