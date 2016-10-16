@@ -19,8 +19,6 @@ import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 /**
  * Created by Vinh on 10/13/2016.
  */
@@ -82,14 +80,14 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                 if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                     Glide.with(getContext())
                             .load(movie.getPosterPath())
-                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
+//                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
                             .placeholder(R.drawable.placeholder_portrait)
                             .into(normalRatingMovieViewHolder.ivCover);
                 } else {
                     Glide.with(getContext())
                             .load(movie.getBackdropPath())
                             .placeholder(R.drawable.placeholder_landscape)
-                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
+//                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
                             .into(normalRatingMovieViewHolder.ivCover);
                 }
 

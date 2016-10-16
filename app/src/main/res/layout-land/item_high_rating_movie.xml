@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/ivCover"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/cover_height"
+        android:layout_height="match_parent"
         android:src="@drawable/sample"
         tools:src="@drawable/sample"
         android:adjustViewBounds="true"

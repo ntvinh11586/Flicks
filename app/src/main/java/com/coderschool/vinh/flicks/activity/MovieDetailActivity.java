@@ -1,7 +1,6 @@
 package com.coderschool.vinh.flicks.activity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,18 +37,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
-        Configuration configuration = getResources().getConfiguration();
-        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Glide.with(this)
-                    .load(movie.getPosterPath())
-                    .placeholder(R.drawable.placeholder_portrait)
-                    .into(ivCover);
-        } else {
-            Glide.with(this)
-                    .load(movie.getBackdropPath())
-                    .placeholder(R.drawable.placeholder_landscape)
-                    .into(ivCover);
-        }
+        Glide.with(this)
+                .load(movie.getBackdropPath())
+                .placeholder(R.drawable.placeholder_landscape)
+                .into(ivCover);
 
         ivCover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +52,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         rbVoteAverage.setRating(movie.getVoteAverage());
-        tvPopularity.setText("Popularity: " + String.valueOf(movie.getPopularity()));
+        tvPopularity.setText(String.valueOf(movie.getPopularity()));
 
 
     }

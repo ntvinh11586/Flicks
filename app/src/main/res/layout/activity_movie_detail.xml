@@ -1,79 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/space_normal"
     android:background="@color/colorPrimary">
 
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/cover_height">
-
-        <ImageView
-            android:id="@+id/ivCover"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/cover_height"
-            android:src="@drawable/sample"
-            tools:src="@drawable/sample"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/play_button"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_centerInParent="true" />
-
-    </RelativeLayout>
-
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cover_height"
+                android:src="@drawable/sample"
+                tools:src="@drawable/sample"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/play_button"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:padding="@dimen/space_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_small"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/size_huge"
-            tools:text="Hello World" />
+            android:orientation="vertical">
 
-        <RatingBar
-            android:id="@+id/rbVoteAverage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/ratingBarStyleSmall"
-            android:numStars="10"
-            android:stepSize="0"
-            android:isIndicator="true"
-            android:layout_marginLeft="@dimen/space_small" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/size_detail_extra"
+                android:textStyle="bold"
+                tools:text="Hello World" />
 
-        <TextView
-            android:id="@+id/tvPopularity"
-            android:textSize="@dimen/size_normal"
-            android:layout_marginLeft="@dimen/space_small"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="28.867483" />
+            <RatingBar
+                android:id="@+id/rbVoteAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="10"
+                android:stepSize="0"
+                android:isIndicator="true"
+                android:layout_marginBottom="@dimen/space_normal" />
 
-        <TextView
-            android:id="@+id/tvOverview"
-            android:textSize="@dimen/size_normal"
-            android:layout_marginLeft="@dimen/space_small"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Lorem ipsum dolor sit amet, a ac felis. Mauris in dui non dui ultrices tempus. Pellentesque et fermentum nisi, et venenatis urna. Ut tempus velit non ullamcorper semper. Pellentesque vel egestas enim. Proin sed tristique dui. Etiam eget augue est." />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Popularity" />
+
+            <TextView
+                android:id="@+id/tvPopularity"
+                android:textSize="@dimen/size_normal"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="28.867483"
+                android:layout_marginBottom="@dimen/space_normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Overview" />
+
+            <TextView
+                android:id="@+id/tvOverview"
+                android:textSize="@dimen/size_normal"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Lorem ipsum dolor sit amet, a ac felis. Mauris in dui non dui ultrices tempus. Pellentesque et fermentum nisi, et venenatis urna. Ut tempus velit non ullamcorper semper. Pellentesque vel egestas enim. Proin sed tristique dui. Etiam eget augue est." />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

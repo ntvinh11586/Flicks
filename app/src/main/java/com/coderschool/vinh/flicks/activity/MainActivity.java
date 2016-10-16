@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.coderschool.vinh.flicks.MovieApi.MovieApi;
 import com.coderschool.vinh.flicks.R;
@@ -24,7 +23,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private ListView lvMovie;
-    private ProgressBar pbLoading;
     private MovieApi mMovieApi;
     private SwipeRefreshLayout swipeContainer;
     private NowPlaying nowPlaying;
@@ -47,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        pbLoading = (ProgressBar) findViewById(R.id.pdLoading);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
     private void handleResponse(Response<NowPlaying> response) {
         nowPlaying = response.body();
         lvMovie.setAdapter(new MovieAdapter(this, nowPlaying.getMovies()));
-
-//        pbLoading.setVisibility(GONE);
 
         if (swipeContainer.isRefreshing())
             swipeContainer.setRefreshing(false);
