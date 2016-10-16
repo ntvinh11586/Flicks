@@ -28,7 +28,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvOverview = (TextView) findViewById(R.id.tvOverview);
-        ivCover = (ImageView) findViewById(R.id.ivCover);
+        ivCover = (ImageView) findViewById(R.id.ivCoverBig);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         tvPopularity = (TextView) findViewById(R.id.tvPopularity);
 

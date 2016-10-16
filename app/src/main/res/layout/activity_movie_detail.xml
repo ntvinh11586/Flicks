@@ -9,7 +9,7 @@
 
     <ImageView
         android:layout_weight="1"
-        android:id="@+id/ivCover"
+        android:id="@+id/ivCoverBig"
         android:layout_width="0dp"
         android:layout_height="@dimen/cover_height"
         android:src="@drawable/sample"
