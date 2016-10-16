@@ -24,7 +24,6 @@ public class TrailerActivity extends YouTubeBaseActivity {
     YouTubePlayerView youTubePlayerView;
 
     private MovieApi mMovieApi;
-    private int id;
     private Youtube youtube;
 
     @Override
@@ -32,10 +31,7 @@ public class TrailerActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
         ButterKnife.bind(this);
-
-        id = getIntent().getIntExtra("id", -1);
-
-        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key), id).create(MovieApi.class);
+        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key), getIntent().getIntExtra("id", -1)).create(MovieApi.class);
 
         mMovieApi.getTrailter().enqueue(new Callback<Youtube>() {
             @Override
@@ -43,7 +39,7 @@ public class TrailerActivity extends YouTubeBaseActivity {
                 youtube = response.body();
                 final Trailer trailer = youtube.getTrailers().get(0);
 
-                youTubePlayerView.initialize("AIzaSyA_pv9AD36HrVqwOPZwFOelJJ-6AdgFSxk",
+                youTubePlayerView.initialize(getString(R.string.api_google_key),
                         new YouTubePlayer.OnInitializedListener() {
                             @Override
                             public void onInitializationSuccess(YouTubePlayer.Provider provider,
