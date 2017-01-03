@@ -31,9 +31,9 @@ public class TrailerActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trailer);
         ButterKnife.bind(this);
-        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key), getIntent().getIntExtra("id", -1)).create(MovieApi.class);
+        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key)).create(MovieApi.class);
 
-        mMovieApi.getTrailter().enqueue(new Callback<Youtube>() {
+        mMovieApi.getTrailer(getIntent().getIntExtra("id", -1)).enqueue(new Callback<Youtube>() {
             @Override
             public void onResponse(Call<Youtube> call, Response<Youtube> response) {
                 youtube = response.body();

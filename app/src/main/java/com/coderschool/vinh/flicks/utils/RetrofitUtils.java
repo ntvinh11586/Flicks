@@ -24,9 +24,9 @@ public class RetrofitUtils {
                 .build();
     }
 
-    public static Retrofit getTrailer(String apiKey, int id) {
+    public static Retrofit getTrailer(String apiKey) {
         return new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL + String.valueOf(id) + "/")
+                .baseUrl(Constant.BASE_URL)
                 .client(client(apiKey))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
