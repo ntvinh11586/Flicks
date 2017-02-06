@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.MovieApi;
+package com.coderschool.vinh.flicks.api;
 
 import com.coderschool.vinh.flicks.model.NowPlaying;
 import com.coderschool.vinh.flicks.model.Youtube;

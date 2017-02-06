@@ -2,7 +2,7 @@ package com.coderschool.vinh.flicks.activity;
 
 import android.os.Bundle;
 
-import com.coderschool.vinh.flicks.MovieApi.MovieApi;
+import com.coderschool.vinh.flicks.api.MovieApi;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.model.Trailer;
 import com.coderschool.vinh.flicks.model.Youtube;

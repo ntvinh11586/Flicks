@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.coderschool.vinh.flicks.MovieApi.MovieApi;
+import com.coderschool.vinh.flicks.api.MovieApi;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.adapter.MovieAdapter;
 import com.coderschool.vinh.flicks.model.Movie;
