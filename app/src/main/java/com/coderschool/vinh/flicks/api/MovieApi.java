@@ -12,7 +12,6 @@ import retrofit2.http.Path;
  */
 
 public interface MovieApi {
-
     @GET("now_playing")
     Call<NowPlaying> getNowPlaying();
 

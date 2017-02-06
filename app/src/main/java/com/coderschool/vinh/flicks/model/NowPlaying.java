@@ -10,11 +10,17 @@ import java.util.List;
  */
 
 public class NowPlaying implements Serializable {
-
     @SerializedName("results")
     private List<Movie> movies;
 
+    @SerializedName("page")
+    private int page;
+
     public List<Movie> getMovies() {
         return movies;
+    }
+
+    public int getPage() {
+        return page;
     }
 }

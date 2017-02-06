@@ -23,7 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
     @BindView(R.id.lvMovie)
     ListView lvMovie;
     @BindView(R.id.swipeContainer)
@@ -44,27 +43,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Movie movie = nowPlaying.getMovies().get(position);
-
-                Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this,
+                        MovieDetailActivity.class);
                 intent.putExtra("movie", movie);
-
                 startActivity(intent);
             }
         });
 
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 fetchMovies();
             }
         });
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark);
-
 
         fetchMovies();
     }
 
     private void fetchMovies() {
+        // Call -> enqueue() - asynchronously
+        // Call -> execute() - synchronously
         mMovieApi.getNowPlaying().enqueue(new Callback<NowPlaying>() {
             @Override
             public void onResponse(Call<NowPlaying> call, Response<NowPlaying> response) {
@@ -79,11 +78,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleResponse(Response<NowPlaying> response) {
+        // response.body() structure depends on T in Response<T>
         nowPlaying = response.body();
-        lvMovie.setAdapter(new MovieAdapter(this, nowPlaying.getMovies()));
+        lvMovie.setAdapter(new MovieAdapter(this,
+                nowPlaying.getMovies()));
 
-        if (swipeContainer.isRefreshing())
+        if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
+        }
     }
-
 }

@@ -9,7 +9,6 @@ import java.util.List;
  */
 
 public class Youtube {
-
     @SerializedName("youtube")
     private List<Trailer> trailers;
 

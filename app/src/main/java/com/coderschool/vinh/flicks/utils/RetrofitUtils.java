@@ -15,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitUtils {
-
     public static Retrofit getMovie(String apiKey) {
         return new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
@@ -41,12 +40,14 @@ public class RetrofitUtils {
     private static Interceptor apiKeyInterceptor(final String apiKey) {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(Interceptor.Chain chain) throws IOException {
+                // Build Url for request
                 Request request = chain.request();
                 HttpUrl url = request.url()
                         .newBuilder()
                         .addQueryParameter("api_key", apiKey)
                         .build();
+                // Build request
                 request = request.newBuilder()
                         .url(url)
                         .build();
