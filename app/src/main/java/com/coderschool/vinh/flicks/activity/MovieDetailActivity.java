@@ -16,7 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MovieDetailActivity extends AppCompatActivity {
-
+    static private final String EXTRA_ID = "id";
+    static private final String EXTRA_MOVIE = "movie";
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -36,7 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
 
-        movie = (Movie) getIntent().getSerializableExtra("movie");
+        movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
@@ -50,7 +51,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
-                intent.putExtra("id", movie.getId());
+                intent.putExtra(EXTRA_ID, movie.getId());
                 startActivity(intent);
             }
         });

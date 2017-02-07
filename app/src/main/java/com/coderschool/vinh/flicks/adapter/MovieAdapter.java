@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
  */
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
+    static private final String EXTRA_ID = "id";
     private final int HIGH_RATING_MOVIE = 1;
     private final int NORMAL_RATING_MOVIE = 0;
 
@@ -118,7 +119,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), TrailerActivity.class);
-                intent.putExtra("id", getItem(position).getId());
+                intent.putExtra(EXTRA_ID, getItem(position).getId());
                 getContext().startActivity(intent);
             }
         });

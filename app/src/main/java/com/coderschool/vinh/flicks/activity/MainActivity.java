@@ -23,6 +23,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    static private final String EXTRA_MOVIE = "movie";
+
     @BindView(R.id.lvMovie)
     ListView lvMovie;
     @BindView(R.id.swipeContainer)
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 Movie movie = nowPlaying.getMovies().get(position);
                 Intent intent = new Intent(MainActivity.this,
                         MovieDetailActivity.class);
-                intent.putExtra("movie", movie);
+                intent.putExtra(EXTRA_MOVIE, movie);
                 startActivity(intent);
             }
         });
