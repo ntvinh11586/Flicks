@@ -37,6 +37,7 @@ public class RetrofitUtils {
                 .build();
     }
 
+    // This method of Interceptor call when we call api
     private static Interceptor apiKeyInterceptor(final String apiKey) {
         return new Interceptor() {
             @Override

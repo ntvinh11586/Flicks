@@ -27,10 +27,10 @@ import butterknife.ButterKnife;
  */
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
-    private List<Movie> mMovies;
-
     private final int HIGH_RATING_MOVIE = 1;
     private final int NORMAL_RATING_MOVIE = 0;
+
+    private List<Movie> mMovies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         super(context, -1);
@@ -54,77 +54,9 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        int type = getItemViewType(position);
-        Movie movie;
-        switch (type) {
-            case NORMAL_RATING_MOVIE:
-                NormalRatingMovieViewHolder normalRatingMovieViewHolder;
-
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext())
-                            .inflate(R.layout.item_normal_rating_movie, parent, false);
-                    normalRatingMovieViewHolder = new NormalRatingMovieViewHolder(convertView);
-                    convertView.setTag(normalRatingMovieViewHolder);
-                } else {
-                    normalRatingMovieViewHolder = (NormalRatingMovieViewHolder) convertView.getTag();
-                }
-
-                movie = getItem(position);
-
-                normalRatingMovieViewHolder.tvTitle.setText(movie.getTitle());
-                normalRatingMovieViewHolder.tvOverview.setText(movie.getOverview());
-
-                Configuration configuration = getContext().getResources()
-                        .getConfiguration();
-                if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    Glide.with(getContext())
-                            .load(movie.getPosterPath())
-                            // I don't want to use this RoundedCorners because it is not fit to my design
-//                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
-                            .placeholder(R.drawable.placeholder_portrait)
-                            .into(normalRatingMovieViewHolder.ivCover);
-                } else {
-                    Glide.with(getContext())
-                            .load(movie.getBackdropPath())
-                            .placeholder(R.drawable.placeholder_landscape)
-//                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 90, 0))
-                            .into(normalRatingMovieViewHolder.ivCover);
-                }
-
-                break;
-
-            case HIGH_RATING_MOVIE:
-                HighRatingMovieViewHolder highRatingMovieViewHolder;
-
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext())
-                            .inflate(R.layout.item_high_rating_movie, parent, false);
-                    highRatingMovieViewHolder = new HighRatingMovieViewHolder(convertView);
-                    convertView.setTag(highRatingMovieViewHolder);
-                } else {
-                    highRatingMovieViewHolder = (HighRatingMovieViewHolder) convertView.getTag();
-                }
-
-                movie = getItem(position);
-
-                Glide.with(getContext())
-                    .load(movie.getBackdropPath())
-                    .placeholder(R.drawable.placeholder_landscape)
-                        .into(highRatingMovieViewHolder.ivCover);
-
-                highRatingMovieViewHolder.ivCover.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getContext(), TrailerActivity.class);
-                        intent.putExtra("id", getItem(position).getId());
-                        getContext().startActivity(intent);
-                    }
-                });
-
-                break;
-        }
-
-        return convertView;
+        return getItemViewType(position) == NORMAL_RATING_MOVIE
+                ? getNormalRatingMovieView(position, convertView, parent)
+                : getHighRatingMovieView(position, convertView, parent);
     }
 
     @Override
@@ -132,6 +64,67 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         return mMovies.size();
     }
 
+    private View getNormalRatingMovieView(final int position, View convertView, @NonNull ViewGroup parent) {
+        NormalRatingMovieVH normalRatingMovieVH;
+        Movie movie = getItem(position);
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_normal_rating_movie, parent, false);
+            normalRatingMovieVH = new NormalRatingMovieVH(convertView);
+            normalRatingMovieVH.tvTitle.setText(movie.getTitle());
+            normalRatingMovieVH.tvOverview.setText(movie.getOverview());
+            convertView.setTag(normalRatingMovieVH);
+        } else {
+            normalRatingMovieVH = (NormalRatingMovieVH) convertView.getTag();
+        }
+
+        Configuration configuration = getContext().getResources()
+                .getConfiguration();
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Glide.with(getContext())
+                    .load(movie.getPosterPath())
+                    .placeholder(R.drawable.placeholder_portrait)
+                    .into(normalRatingMovieVH.ivCover);
+        } else {
+            Glide.with(getContext())
+                    .load(movie.getBackdropPath())
+                    .placeholder(R.drawable.placeholder_landscape)
+                    .into(normalRatingMovieVH.ivCover);
+        }
+
+        return convertView;
+    }
+
+    private View getHighRatingMovieView(final int position, View convertView, @NonNull ViewGroup parent) {
+        Movie movie = getItem(position);
+        HighRatingMovieVH highRatingMovieVH;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_high_rating_movie, parent, false);
+            highRatingMovieVH = new HighRatingMovieVH(convertView);
+            convertView.setTag(highRatingMovieVH);
+        } else {
+            highRatingMovieVH = (HighRatingMovieVH) convertView.getTag();
+        }
+
+        Glide.with(getContext())
+                .load(movie.getBackdropPath())
+                .placeholder(R.drawable.placeholder_landscape)
+                .into(highRatingMovieVH.ivCover);
+
+        highRatingMovieVH.ivCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TrailerActivity.class);
+                intent.putExtra("id", getItem(position).getId());
+                getContext().startActivity(intent);
+            }
+        });
+
+        return convertView;
+    }
 
     @Nullable
     @Override
@@ -139,8 +132,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         return mMovies.get(position);
     }
 
-    static class NormalRatingMovieViewHolder {
-
+    static class NormalRatingMovieVH {
         @BindView(R.id.tvTitle)
         TextView tvTitle;
         @BindView(R.id.tvOverview)
@@ -148,19 +140,17 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         @BindView(R.id.ivCover)
         ImageView ivCover;
 
-        NormalRatingMovieViewHolder(View view) {
+        NormalRatingMovieVH(View view) {
             ButterKnife.bind(this, view);
         }
     }
 
-    static class HighRatingMovieViewHolder {
-
+    static class HighRatingMovieVH {
         @BindView(R.id.ivCover)
         ImageView ivCover;
 
-        HighRatingMovieViewHolder(View view) {
+        HighRatingMovieVH(View view) {
             ButterKnife.bind(this, view);
-
         }
     }
 }
