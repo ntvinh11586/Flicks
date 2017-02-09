@@ -56,6 +56,8 @@ public class TrailerActivity extends YouTubeBaseActivity {
                                                         boolean b) {
                         // Get the first trailer in list result
                         Trailer trailer = youtube.getTrailers().get(0);
+                        // cueVideo() -> load, not play
+                        // loadVideo() -> load, play
                         youTubePlayer.loadVideo(trailer.getSource());
                         youTubePlayer.setFullscreen(true);
                     }
