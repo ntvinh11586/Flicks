@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary">
 
     <ImageView
-        android:id="@+id/ivCover"
+        android:id="@+id/ivNormalRatingCover"
         android:layout_width="@dimen/cover_width"
         android:layout_height="@dimen/cover_height"
         android:src="@drawable/sample"

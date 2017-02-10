@@ -3,6 +3,7 @@ package com.coderschool.vinh.flicks.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
@@ -18,9 +18,6 @@ import com.coderschool.vinh.flicks.activity.TrailerActivity;
 import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Vinh on 10/13/2016.
@@ -73,26 +70,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.item_normal_rating_movie, parent, false);
             normalRatingMovieVH = new NormalRatingMovieVH(convertView);
-            normalRatingMovieVH.tvTitle.setText(movie.getTitle());
-            normalRatingMovieVH.tvOverview.setText(movie.getOverview());
             convertView.setTag(normalRatingMovieVH);
         } else {
             normalRatingMovieVH = (NormalRatingMovieVH) convertView.getTag();
         }
 
-        Configuration configuration = getContext().getResources()
-                .getConfiguration();
-        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Glide.with(getContext())
-                    .load(movie.getPosterPath())
-                    .placeholder(R.drawable.placeholder_portrait)
-                    .into(normalRatingMovieVH.ivCover);
-        } else {
-            Glide.with(getContext())
-                    .load(movie.getBackdropPath())
-                    .placeholder(R.drawable.placeholder_landscape)
-                    .into(normalRatingMovieVH.ivCover);
-        }
+        normalRatingMovieVH.binding.setMovie(movie);
 
         return convertView;
     }
@@ -110,12 +93,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             highRatingMovieVH = (HighRatingMovieVH) convertView.getTag();
         }
 
-        Glide.with(getContext())
-                .load(movie.getBackdropPath())
-                .placeholder(R.drawable.placeholder_landscape)
-                .into(highRatingMovieVH.ivCover);
-
-        highRatingMovieVH.ivCover.setOnClickListener(new View.OnClickListener() {
+        highRatingMovieVH.binding.setMovie(movie);
+        highRatingMovieVH.binding.ivHighRatingCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), TrailerActivity.class);
@@ -127,31 +106,36 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         return convertView;
     }
 
+    @BindingAdapter({"bind:imageHighUrl"})
+    public static void loadHighImage(ImageView view, String url) {
+        if (view.getId() == R.id.ivHighRatingCover) {
+            Glide.with(view.getContext())
+                    .load(url)
+                    .placeholder(R.drawable.placeholder_landscape)
+                    .into(view);
+        }
+    }
+
+    @BindingAdapter({"bind:imageNormalUrl"})
+    public static void loadNormalImage(ImageView view, String url) {
+        Configuration configuration = view.getContext().getResources()
+                .getConfiguration();
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Glide.with(view.getContext())
+                    .load(url)
+                    .placeholder(R.drawable.placeholder_portrait)
+                    .into(view);
+        } else {
+            Glide.with(view.getContext())
+                    .load(url)
+                    .placeholder(R.drawable.placeholder_landscape)
+                    .into(view);
+        }
+    }
+
     @Nullable
     @Override
     public Movie getItem(int position) {
         return mMovies.get(position);
-    }
-
-    static class NormalRatingMovieVH {
-        @BindView(R.id.tvTitle)
-        TextView tvTitle;
-        @BindView(R.id.tvOverview)
-        TextView tvOverview;
-        @BindView(R.id.ivCover)
-        ImageView ivCover;
-
-        NormalRatingMovieVH(View view) {
-            ButterKnife.bind(this, view);
-        }
-    }
-
-    static class HighRatingMovieVH {
-        @BindView(R.id.ivCover)
-        ImageView ivCover;
-
-        HighRatingMovieVH(View view) {
-            ButterKnife.bind(this, view);
-        }
     }
 }

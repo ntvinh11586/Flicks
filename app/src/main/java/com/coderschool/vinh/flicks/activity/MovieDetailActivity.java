@@ -31,7 +31,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String url) {
-        if (view.getId() == R.id.ivCover) {
+        if (view.getId() == R.id.ivHighRatingCover) {
             Glide.with(view.getContext())
                     .load(url)
                     .placeholder(R.drawable.placeholder_landscape)
