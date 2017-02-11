@@ -23,7 +23,8 @@ import java.util.List;
  * Created by Vinh on 10/13/2016.
  */
 
-public class MovieAdapter extends ArrayAdapter<Movie> {
+public class MovieAdapter extends ArrayAdapter<Movie>
+        implements View.OnClickListener {
     static private final String EXTRA_ID = "id";
     private final int HIGH_RATING_MOVIE = 1;
     private final int NORMAL_RATING_MOVIE = 0;
@@ -94,14 +95,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         }
 
         highRatingMovieVH.binding.setMovie(movie);
-        highRatingMovieVH.binding.ivHighRatingCover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), TrailerActivity.class);
-                intent.putExtra(EXTRA_ID, getItem(position).getId());
-                getContext().startActivity(intent);
-            }
-        });
+        highRatingMovieVH.binding.ivHighRatingCover.setTag(position);
+        highRatingMovieVH.binding.ivHighRatingCover.setOnClickListener(this);
 
         return convertView;
     }
@@ -137,5 +132,13 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     @Override
     public Movie getItem(int position) {
         return mMovies.get(position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        Intent intent = new Intent(getContext(), TrailerActivity.class);
+        intent.putExtra(EXTRA_ID, getItem(position).getId());
+        getContext().startActivity(intent);
     }
 }
