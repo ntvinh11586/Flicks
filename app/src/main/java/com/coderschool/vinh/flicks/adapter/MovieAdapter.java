@@ -1,7 +1,6 @@
 package com.coderschool.vinh.flicks.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
-import com.coderschool.vinh.flicks.activity.TrailerActivity;
 import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
@@ -23,9 +21,7 @@ import java.util.List;
  * Created by Vinh on 10/13/2016.
  */
 
-public class MovieAdapter extends ArrayAdapter<Movie>
-        implements View.OnClickListener {
-    static private final String EXTRA_ID = "id";
+public class MovieAdapter extends ArrayAdapter<Movie> {
     private final int HIGH_RATING_MOVIE = 1;
     private final int NORMAL_RATING_MOVIE = 0;
 
@@ -96,7 +92,6 @@ public class MovieAdapter extends ArrayAdapter<Movie>
 
         highRatingMovieVH.binding.setMovie(movie);
         highRatingMovieVH.binding.ivHighRatingCover.setTag(position);
-        highRatingMovieVH.binding.ivHighRatingCover.setOnClickListener(this);
 
         return convertView;
     }
@@ -132,13 +127,5 @@ public class MovieAdapter extends ArrayAdapter<Movie>
     @Override
     public Movie getItem(int position) {
         return mMovies.get(position);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int position = (int) v.getTag();
-        Intent intent = new Intent(getContext(), TrailerActivity.class);
-        intent.putExtra(EXTRA_ID, getItem(position).getId());
-        getContext().startActivity(intent);
     }
 }

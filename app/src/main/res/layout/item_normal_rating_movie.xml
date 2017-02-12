@@ -8,6 +8,7 @@
 
     <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/llNormalRatingMovie"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

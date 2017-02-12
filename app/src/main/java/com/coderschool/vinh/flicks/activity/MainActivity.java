@@ -23,6 +23,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+    static private final String EXTRA_TRAILER = "id";
     static private final String EXTRA_MOVIE = "movie";
 
     private MovieApi mMovieApi;
@@ -46,10 +47,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Movie movie = nowPlaying.getMovies().get(position);
-        Intent intent = new Intent(MainActivity.this,
-                MovieDetailActivity.class);
-        intent.putExtra(EXTRA_MOVIE, movie);
-        startActivity(intent);
+        if (movie.getVoteAverage() > 5.0) {
+            Intent intent = new Intent(MainActivity.this,
+                    TrailerActivity.class);
+            intent.putExtra(EXTRA_TRAILER, movie.getId());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this,
+                    MovieDetailActivity.class);
+            intent.putExtra(EXTRA_MOVIE, movie);
+            startActivity(intent);
+        }
     }
 
     @Override
