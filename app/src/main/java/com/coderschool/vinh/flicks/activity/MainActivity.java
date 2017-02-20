@@ -22,7 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+        implements AdapterView.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener{
     static private final String EXTRA_TRAILER = "id";
     static private final String EXTRA_MOVIE = "movie";
 
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mMovieApi = RetrofitUtils.getMovie(getString(R.string.api_key)).create(MovieApi.class);
+        mMovieApi = RetrofitUtils
+                .getMovie(getString(R.string.api_key))
+                .create(MovieApi.class);
         fetchMovies();
 
         binding.lvMovie.setOnItemClickListener(this);
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Movie movie = nowPlaying.getMovies().get(position);
-        if (movie.getVoteAverage() > 5.0) {
+        if (movie.isHighRatingMovie()) {
             Intent intent = new Intent(MainActivity.this,
                     TrailerActivity.class);
             intent.putExtra(EXTRA_TRAILER, movie.getId());

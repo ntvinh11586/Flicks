@@ -58,4 +58,8 @@ public class Movie implements Serializable {
     public String getBackdropPath() {
         return Constant.STATIC_BASE_URL + backdropPath;
     }
+
+    public boolean isHighRatingMovie() {
+        return getVoteAverage() > 5.0;
+    }
 }

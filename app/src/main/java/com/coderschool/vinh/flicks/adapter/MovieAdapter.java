@@ -34,7 +34,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).getVoteAverage() > 5.0) {
+        if (getItem(position).isHighRatingMovie()) {
             return HIGH_RATING_MOVIE;
         } else {
             return NORMAL_RATING_MOVIE;
@@ -108,7 +108,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
     @BindingAdapter({"bind:imageNormalUrl"})
     public static void loadNormalImage(ImageView view, String url) {
-        Configuration configuration = view.getContext().getResources()
+        Configuration configuration = view.getContext()
+                .getResources()
                 .getConfiguration();
         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(view.getContext())
