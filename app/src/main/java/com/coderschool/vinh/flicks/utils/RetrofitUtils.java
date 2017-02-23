@@ -1,5 +1,7 @@
 package com.coderschool.vinh.flicks.utils;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -34,6 +36,7 @@ public class RetrofitUtils {
     private static OkHttpClient client(String apiKey) {
         return new OkHttpClient.Builder()
                 .addInterceptor(apiKeyInterceptor(apiKey))
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
     }
 
