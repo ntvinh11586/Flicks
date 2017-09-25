@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +16,18 @@ import com.coderschool.vinh.flicks.model.Movie;
 
 import java.util.List;
 
-/**
- * Created by Vinh on 10/13/2016.
- */
-
 public class MovieAdapter extends ArrayAdapter<Movie> {
     private final int HIGH_RATING_MOVIE = 1;
     private final int NORMAL_RATING_MOVIE = 0;
 
-    private List<Movie> mMovies;
-
     public MovieAdapter(Context context, List<Movie> movies) {
-        super(context, -1);
-        mMovies = movies;
+        super(context, -1, movies);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).isHighRatingMovie()) {
+        Movie movie = getItem(position);
+        if (movie != null && movie.isHighRatingMovie()) {
             return HIGH_RATING_MOVIE;
         } else {
             return NORMAL_RATING_MOVIE;
@@ -48,50 +41,53 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
     @NonNull
     @Override
-    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position,
+                        View convertView,
+                        @NonNull ViewGroup parent) {
         return getItemViewType(position) == NORMAL_RATING_MOVIE
                 ? getNormalRatingMovieView(position, convertView, parent)
                 : getHighRatingMovieView(position, convertView, parent);
     }
 
-    @Override
-    public int getCount() {
-        return mMovies.size();
-    }
-
-    private View getNormalRatingMovieView(final int position, View convertView, @NonNull ViewGroup parent) {
-        NormalRatingMovieVH normalRatingMovieVH;
-        Movie movie = getItem(position);
-
+    private View getNormalRatingMovieView(final int position,
+                                          View convertView,
+                                          @NonNull ViewGroup parent) {
+        NormalRatingMovieViewHolder normalRatingMovieViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.item_normal_rating_movie, parent, false);
-            normalRatingMovieVH = new NormalRatingMovieVH(convertView);
-            convertView.setTag(normalRatingMovieVH);
+            normalRatingMovieViewHolder = new NormalRatingMovieViewHolder(convertView);
+            convertView.setTag(normalRatingMovieViewHolder);
         } else {
-            normalRatingMovieVH = (NormalRatingMovieVH) convertView.getTag();
+            normalRatingMovieViewHolder = (NormalRatingMovieViewHolder) convertView.getTag();
         }
 
-        normalRatingMovieVH.binding.setMovie(movie);
+        normalRatingMovieViewHolder.getBinding()
+                .setMovie(getItem(position));
 
         return convertView;
     }
 
-    private View getHighRatingMovieView(final int position, View convertView, @NonNull ViewGroup parent) {
+    private View getHighRatingMovieView(final int position,
+                                        View convertView,
+                                        @NonNull ViewGroup parent) {
         Movie movie = getItem(position);
-        HighRatingMovieVH highRatingMovieVH;
+        HighRatingMovieViewHolder highRatingMovieViewHolder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.item_high_rating_movie, parent, false);
-            highRatingMovieVH = new HighRatingMovieVH(convertView);
-            convertView.setTag(highRatingMovieVH);
+            highRatingMovieViewHolder = new HighRatingMovieViewHolder(convertView);
+            convertView.setTag(highRatingMovieViewHolder);
         } else {
-            highRatingMovieVH = (HighRatingMovieVH) convertView.getTag();
+            highRatingMovieViewHolder = (HighRatingMovieViewHolder) convertView.getTag();
         }
 
-        highRatingMovieVH.binding.setMovie(movie);
-        highRatingMovieVH.binding.ivHighRatingCover.setTag(position);
+        highRatingMovieViewHolder.getBinding()
+                .setMovie(movie);
+        highRatingMovieViewHolder.getBinding()
+                .ivHighRatingCover
+                .setTag(position);
 
         return convertView;
     }
@@ -122,11 +118,5 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
                     .placeholder(R.drawable.placeholder_landscape)
                     .into(view);
         }
-    }
-
-    @Nullable
-    @Override
-    public Movie getItem(int position) {
-        return mMovies.get(position);
     }
 }

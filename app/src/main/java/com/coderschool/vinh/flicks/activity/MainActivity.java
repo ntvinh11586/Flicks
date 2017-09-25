@@ -24,6 +24,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener{
+    private static final String TAG = "MainActivityTag";
     static private final String EXTRA_TRAILER = "id";
     static private final String EXTRA_MOVIE = "movie";
 
@@ -37,28 +38,26 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        binding.lvMovie.setOnItemClickListener(this);
+        binding.swipe.setColorSchemeResources(android.R.color.holo_blue_dark);
+        binding.swipe.setOnRefreshListener(this);
+
         mMovieApi = RetrofitUtils
                 .getMovie(getString(R.string.api_key))
                 .create(MovieApi.class);
         fetchMovies();
-
-        binding.lvMovie.setOnItemClickListener(this);
-        binding.swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark);
-        binding.swipeContainer.setOnRefreshListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Movie movie = nowPlaying.getMovies().get(position);
         if (movie.isHighRatingMovie()) {
-            Intent intent = new Intent(MainActivity.this,
-                    TrailerActivity.class);
-            intent.putExtra(EXTRA_TRAILER, movie.getId());
+            Intent intent = new Intent(MainActivity.this, TrailerActivity.class)
+                    .putExtra(EXTRA_TRAILER, movie.getId());
             startActivity(intent);
         } else {
-            Intent intent = new Intent(MainActivity.this,
-                    MovieDetailActivity.class);
-            intent.putExtra(EXTRA_MOVIE, movie);
+            Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class)
+                    .putExtra(EXTRA_MOVIE, movie);
             startActivity(intent);
         }
     }
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<NowPlaying> call, Throwable t) {
-                Log.d("Response", t.getMessage());
+                Log.e(TAG, t.getMessage());
             }
         });
     }
@@ -89,8 +88,8 @@ public class MainActivity extends AppCompatActivity
         binding.lvMovie.setAdapter(new MovieAdapter(this,
                 nowPlaying.getMovies()));
 
-        if (binding.swipeContainer.isRefreshing()) {
-            binding.swipeContainer.setRefreshing(false);
+        if (binding.swipe.isRefreshing()) {
+            binding.swipe.setRefreshing(false);
         }
     }
 }

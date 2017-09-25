@@ -5,11 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Vinh on 10/12/2016.
- */
-
 public class Movie implements Serializable {
+    private final double HIGH_RATING = 5.0;
+
     @SerializedName("title")
     private String title;
 
@@ -60,6 +58,6 @@ public class Movie implements Serializable {
     }
 
     public boolean isHighRatingMovie() {
-        return getVoteAverage() > 5.0;
+        return getVoteAverage() > HIGH_RATING;
     }
 }

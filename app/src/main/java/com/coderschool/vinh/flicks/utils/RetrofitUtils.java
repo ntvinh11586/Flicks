@@ -12,10 +12,6 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Vinh on 10/12/2016.
- */
-
 public class RetrofitUtils {
     public static Retrofit getMovie(String apiKey) {
         return new Retrofit.Builder()

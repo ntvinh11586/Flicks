@@ -18,15 +18,14 @@ public class MovieDetailActivity extends AppCompatActivity {
     static private final String EXTRA_MOVIE = "movie";
 
     private ActivityMovieDetailBinding binding;
-    private Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-
-        movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
-        binding.setMovie(movie);
+        binding.setMovie((Movie) getIntent()
+                .getSerializableExtra(EXTRA_MOVIE)
+        );
     }
 
     @BindingAdapter({"bind:imageUrl"})
@@ -41,7 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public void onCoverClick(View view) {
         Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
-        intent.putExtra(EXTRA_ID, movie.getId());
+        intent.putExtra(EXTRA_ID, binding.getMovie().getId());
         startActivity(intent);
     }
 }
