@@ -20,9 +20,6 @@ android {
     dataBinding.enabled = true
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -40,5 +37,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'com.facebook.stetho:stetho:1.4.1'
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife-compiler:8.2.1'
 }

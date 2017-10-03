@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.coderschool.vinh.flicks.databinding.ItemHighRatingMovieBinding;
 
+
 public class HighRatingMovieViewHolder {
     private ItemHighRatingMovieBinding binding;
 
