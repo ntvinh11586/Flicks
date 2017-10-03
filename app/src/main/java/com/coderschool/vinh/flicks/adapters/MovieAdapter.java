@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.adapter;
+package com.coderschool.vinh.flicks.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
-import com.coderschool.vinh.flicks.model.Movie;
+import com.coderschool.vinh.flicks.models.Movie;
 
 import java.util.List;
 

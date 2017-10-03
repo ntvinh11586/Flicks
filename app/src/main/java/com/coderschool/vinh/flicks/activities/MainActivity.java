@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.activity;
+package com.coderschool.vinh.flicks.activities;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.coderschool.vinh.flicks.R;
-import com.coderschool.vinh.flicks.adapter.MovieAdapter;
+import com.coderschool.vinh.flicks.adapters.MovieAdapter;
 import com.coderschool.vinh.flicks.api.MovieApi;
 import com.coderschool.vinh.flicks.databinding.ActivityMainBinding;
-import com.coderschool.vinh.flicks.model.Movie;
-import com.coderschool.vinh.flicks.model.NowPlaying;
+import com.coderschool.vinh.flicks.models.Movie;
+import com.coderschool.vinh.flicks.models.NowPlaying;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 
 import retrofit2.Call;

@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.activity;
+package com.coderschool.vinh.flicks.activities;
 
 import android.content.Intent;
 import android.databinding.BindingAdapter;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.databinding.ActivityMovieDetailBinding;
-import com.coderschool.vinh.flicks.model.Movie;
+import com.coderschool.vinh.flicks.models.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
     static private final String EXTRA_ID = "id";

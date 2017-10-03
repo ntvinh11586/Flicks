@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.adapter;
+package com.coderschool.vinh.flicks.adapters;
 
 import android.view.View;
 

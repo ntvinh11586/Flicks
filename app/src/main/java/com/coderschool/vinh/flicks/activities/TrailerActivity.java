@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.activity;
+package com.coderschool.vinh.flicks.activities;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.util.Log;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.api.MovieApi;
 import com.coderschool.vinh.flicks.databinding.ActivityTrailerBinding;
-import com.coderschool.vinh.flicks.model.Trailer;
-import com.coderschool.vinh.flicks.model.Youtube;
+import com.coderschool.vinh.flicks.models.Trailer;
+import com.coderschool.vinh.flicks.models.Youtube;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;

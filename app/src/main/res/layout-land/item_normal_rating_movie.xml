@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="movie" type="com.coderschool.vinh.flicks.model.Movie"/>
+        <variable name="movie" type="com.coderschool.vinh.flicks.models.Movie"/>
     </data>
 
     <LinearLayout

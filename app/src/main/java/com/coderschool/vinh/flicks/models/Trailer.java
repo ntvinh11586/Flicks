@@ -1,4 +1,4 @@
-package com.coderschool.vinh.flicks.model;
+package com.coderschool.vinh.flicks.models;
 
 import com.google.gson.annotations.SerializedName;
 
