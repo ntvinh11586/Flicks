@@ -1,16 +1,12 @@
 package com.coderschool.vinh.flicks.adapters;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.models.Movie;
 
@@ -71,9 +67,7 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     private View getHighRatingMovieView(final int position,
                                         View convertView,
                                         @NonNull ViewGroup parent) {
-        Movie movie = getItem(position);
         HighRatingMovieViewHolder highRatingMovieViewHolder;
-
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.item_high_rating_movie, parent, false);
@@ -84,39 +78,11 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         }
 
         highRatingMovieViewHolder.getBinding()
-                .setMovie(movie);
+                .setMovie(getItem(position));
         highRatingMovieViewHolder.getBinding()
                 .ivHighRatingCover
                 .setTag(position);
 
         return convertView;
-    }
-
-    @BindingAdapter({"bind:imageHighUrl"})
-    public static void loadHighImage(ImageView view, String url) {
-        if (view.getId() == R.id.ivHighRatingCover) {
-            Glide.with(view.getContext())
-                    .load(url)
-                    .placeholder(R.drawable.placeholder_landscape)
-                    .into(view);
-        }
-    }
-
-    @BindingAdapter({"bind:imageNormalUrl"})
-    public static void loadNormalImage(ImageView view, String url) {
-        Configuration configuration = view.getContext()
-                .getResources()
-                .getConfiguration();
-        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Glide.with(view.getContext())
-                    .load(url)
-                    .placeholder(R.drawable.placeholder_portrait)
-                    .into(view);
-        } else {
-            Glide.with(view.getContext())
-                    .load(url)
-                    .placeholder(R.drawable.placeholder_landscape)
-                    .into(view);
-        }
     }
 }

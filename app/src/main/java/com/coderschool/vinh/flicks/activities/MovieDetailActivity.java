@@ -28,15 +28,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         );
     }
 
-    @BindingAdapter({"bind:imageUrl"})
-    public static void loadImage(ImageView view, String url) {
-        if (view.getId() == R.id.ivHighRatingCover) {
-            Glide.with(view.getContext())
-                    .load(url)
-                    .placeholder(R.drawable.placeholder_landscape)
-                    .into(view);
-        }
-    }
+
 
     public void onCoverClick(View view) {
         Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);

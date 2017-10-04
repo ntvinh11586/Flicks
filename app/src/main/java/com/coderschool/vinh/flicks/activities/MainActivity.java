@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         mMovieApi = RetrofitUtils
                 .getMovie(getString(R.string.api_key))
                 .create(MovieApi.class);
+
         fetchMovies();
     }
 

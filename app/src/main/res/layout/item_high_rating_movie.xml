@@ -16,7 +16,7 @@
             android:id="@+id/ivHighRatingCover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cover_height"
-            app:imageHighUrl="@{movie.getBackdropPath()}"
+            app:imageViewLandscapeSrc="@{movie.getBackdropPath()}"
             tools:src="@drawable/sample"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />

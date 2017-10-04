@@ -17,7 +17,7 @@
             android:id="@+id/ivNormalRatingCover"
             android:layout_width="@dimen/cover_width"
             android:layout_height="@dimen/cover_height"
-            app:imageNormalUrl="@{movie.getPosterPath()}"
+            app:imageViewLandscapeSrc="@{movie.getPosterPath()}"
             tools:src="@drawable/sample"
             android:scaleType="fitXY"
             android:adjustViewBounds="true" />

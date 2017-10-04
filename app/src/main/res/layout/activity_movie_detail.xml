@@ -3,96 +3,106 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="movie" type="com.coderschool.vinh.flicks.models.Movie"/>
+
+        <variable
+            name="movie"
+            type="com.coderschool.vinh.flicks.models.Movie" />
     </data>
 
-    <ScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/ivHighRatingCover"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/cover_height"
-                    android:src="@drawable/sample"
-                    tools:src="@drawable/sample"
-                    app:imageUrl="@{movie.getBackdropPath()}"
                     android:adjustViewBounds="true"
+                    android:onClick="onCoverClick"
                     android:scaleType="centerCrop"
-                    android:onClick="onCoverClick"/>
+                    android:src="@drawable/sample"
+                    app:imageViewLandscapeSrc="@{movie.getBackdropPath()}"
+                    tools:src="@drawable/sample" />
+
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/play_button"
+                    android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:layout_centerInParent="true" />
+                    android:src="@drawable/play_button" />
             </RelativeLayout>
 
             <LinearLayout
-                android:padding="@dimen/space_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/space_normal">
+
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{movie.getTitle()}"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/size_detail_extra"
                     android:textStyle="bold"
-                    android:text="@{movie.getTitle()}"
                     tools:text="Hello World" />
+
                 <RatingBar
                     android:id="@+id/rbVoteAverage"
+                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="10"
-                    android:stepSize="0"
+                    android:layout_marginBottom="@dimen/space_normal"
                     android:isIndicator="true"
+                    android:numStars="10"
                     android:rating="@{movie.getVoteAverage()}"
-                    android:layout_marginBottom="@dimen/space_normal" />
+                    android:stepSize="0" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Popularity"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="Popularity" />
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvPopularity"
-                    android:textSize="@dimen/size_normal"
-                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_normal"
                     android:text="@{String.valueOf(movie.getPopularity())}"
-                    android:layout_marginBottom="@dimen/space_normal" />
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/size_normal" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Overview"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="Overview" />
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvOverview"
-                    android:textSize="@dimen/size_normal"
-                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{movie.getOverview()}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/size_normal"
                     tools:text="Lorem ipsum dolor sit amet, Etiam eget augue est." />
             </LinearLayout>
 
