@@ -1,14 +1,11 @@
 package com.coderschool.vinh.flicks.activities;
 
 import android.content.Intent;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.coderschool.vinh.flicks.R;
 import com.coderschool.vinh.flicks.databinding.ActivityMovieDetailBinding;
 import com.coderschool.vinh.flicks.models.Movie;
@@ -28,11 +25,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         );
     }
 
-
-
     public void onCoverClick(View view) {
-        Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class);
-        intent.putExtra(EXTRA_ID, binding.getMovie().getId());
+        Intent intent = new Intent(MovieDetailActivity.this, TrailerActivity.class)
+                .putExtra(EXTRA_ID, binding.getMovie().getId());
         startActivity(intent);
     }
 }

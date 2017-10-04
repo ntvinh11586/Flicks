@@ -55,7 +55,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             normalRatingMovieViewHolder = new NormalRatingMovieViewHolder(convertView);
             convertView.setTag(normalRatingMovieViewHolder);
         } else {
-            normalRatingMovieViewHolder = (NormalRatingMovieViewHolder) convertView.getTag();
+            normalRatingMovieViewHolder =
+                    (NormalRatingMovieViewHolder) convertView.getTag();
         }
 
         normalRatingMovieViewHolder.getBinding()
@@ -74,7 +75,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
             highRatingMovieViewHolder = new HighRatingMovieViewHolder(convertView);
             convertView.setTag(highRatingMovieViewHolder);
         } else {
-            highRatingMovieViewHolder = (HighRatingMovieViewHolder) convertView.getTag();
+            highRatingMovieViewHolder =
+                    (HighRatingMovieViewHolder) convertView.getTag();
         }
 
         highRatingMovieViewHolder.getBinding()

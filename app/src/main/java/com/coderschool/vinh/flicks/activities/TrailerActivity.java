@@ -32,22 +32,24 @@ public class TrailerActivity extends YouTubeBaseActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_trailer);
 
-        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key)).create(MovieApi.class);
+        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key))
+                .create(MovieApi.class);
 
-        mMovieApi.getTrailer(getIntent().getIntExtra(EXTRA_ID, -1)).enqueue(new Callback<Youtube>() {
-            @Override
-            public void onResponse(Call<Youtube> call, Response<Youtube> response) {
-                Youtube youtube = response.body();
-                trailer = youtube.getTrailers().get(0);
-                binding.youTubePlayerView.initialize(getString(R.string.api_google_key),
-                        TrailerActivity.this);
-            }
+        mMovieApi.getTrailer(getIntent().getIntExtra(EXTRA_ID, -1))
+                .enqueue(new Callback<Youtube>() {
+                    @Override
+                    public void onResponse(Call<Youtube> call, Response<Youtube> response) {
+                        Youtube youtube = response.body();
+                        trailer = youtube.getTrailers().get(0);
+                        binding.youTubePlayerView.initialize(getString(R.string.api_google_key),
+                                TrailerActivity.this);
+                    }
 
-            @Override
-            public void onFailure(Call<Youtube> call, Throwable t) {
-                Log.d("err", t.getMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Call<Youtube> call, Throwable t) {
+                        Log.d("err", t.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -61,6 +63,5 @@ public class TrailerActivity extends YouTubeBaseActivity
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider,
                                         YouTubeInitializationResult youTubeInitializationResult) {
-
     }
 }

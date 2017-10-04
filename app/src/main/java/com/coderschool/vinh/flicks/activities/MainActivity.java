@@ -17,6 +17,8 @@ import com.coderschool.vinh.flicks.models.Movie;
 import com.coderschool.vinh.flicks.models.NowPlaying;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity
 
     private ActivityMainBinding binding;
 
+    private MovieAdapter movieAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity
         binding.lvMovie.setOnItemClickListener(this);
         binding.swipe.setColorSchemeResources(android.R.color.holo_blue_dark);
         binding.swipe.setOnRefreshListener(this);
+
+        movieAdapter = new MovieAdapter(this, new ArrayList<Movie>());
+        binding.lvMovie.setAdapter(movieAdapter);
 
         mMovieApi = RetrofitUtils
                 .getMovie(getString(R.string.api_key))
@@ -86,8 +93,8 @@ public class MainActivity extends AppCompatActivity
     private void handleResponse(Response<NowPlaying> response) {
         // response.body() structure depends on T in Response<T>
         nowPlaying = response.body();
-        binding.lvMovie.setAdapter(new MovieAdapter(this,
-                nowPlaying.getMovies()));
+        movieAdapter.clear();
+        movieAdapter.addAll(nowPlaying.getMovies());
 
         if (binding.swipe.isRefreshing()) {
             binding.swipe.setRefreshing(false);
