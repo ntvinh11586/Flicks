@@ -3,6 +3,7 @@ package com.coderschool.vinh.flicks.utils;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -31,6 +32,8 @@ public class RetrofitUtils {
 
     private static OkHttpClient client(String apiKey) {
         return new OkHttpClient.Builder()
+                .connectTimeout(15000, TimeUnit.MILLISECONDS)
+                .readTimeout(30000, TimeUnit.MILLISECONDS)
                 .addInterceptor(apiKeyInterceptor(apiKey))
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
