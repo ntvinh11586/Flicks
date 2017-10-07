@@ -14,6 +14,8 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 
+import java.util.Arrays;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,10 +23,10 @@ import retrofit2.Response;
 public class TrailerActivity extends YouTubeBaseActivity
         implements YouTubePlayer.OnInitializedListener {
     static private final String EXTRA_ID = "id";
+    private static final String TAG = "TrailerActivity";
 
     private MovieApi mMovieApi;
     private Trailer trailer;
-
     private ActivityTrailerBinding binding;
 
     @Override
@@ -32,7 +34,8 @@ public class TrailerActivity extends YouTubeBaseActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_trailer);
 
-        mMovieApi = RetrofitUtils.getTrailer(getString(R.string.api_key))
+        mMovieApi = RetrofitUtils
+                .getTrailer(getString(R.string.api_key))
                 .create(MovieApi.class);
 
         mMovieApi.getTrailer(getIntent().getIntExtra(EXTRA_ID, -1))
@@ -41,13 +44,15 @@ public class TrailerActivity extends YouTubeBaseActivity
                     public void onResponse(Call<Youtube> call, Response<Youtube> response) {
                         Youtube youtube = response.body();
                         trailer = youtube.getTrailers().get(0);
-                        binding.youTubePlayerView.initialize(getString(R.string.api_google_key),
-                                TrailerActivity.this);
+                        binding.youTubePlayerView.initialize(
+                                getString(R.string.api_google_key),
+                                TrailerActivity.this
+                        );
                     }
 
                     @Override
                     public void onFailure(Call<Youtube> call, Throwable t) {
-                        Log.d("err", t.getMessage());
+                        Log.d(TAG, Arrays.toString(t.getStackTrace()));
                     }
                 });
     }
@@ -63,5 +68,6 @@ public class TrailerActivity extends YouTubeBaseActivity
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider,
                                         YouTubeInitializationResult youTubeInitializationResult) {
+        youTubeInitializationResult.getErrorDialog(this, -1);
     }
 }

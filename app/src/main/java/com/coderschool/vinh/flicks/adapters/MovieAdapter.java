@@ -23,11 +23,9 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
     @Override
     public int getItemViewType(int position) {
         Movie movie = getItem(position);
-        if (movie != null && movie.isHighRatingMovie()) {
-            return HIGH_RATING_MOVIE;
-        } else {
-            return NORMAL_RATING_MOVIE;
-        }
+        return (movie != null && movie.isHighRatingMovie())
+                ? HIGH_RATING_MOVIE
+                : NORMAL_RATING_MOVIE;
     }
 
     @Override
@@ -81,9 +79,6 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         highRatingMovieViewHolder.getBinding()
                 .setMovie(getItem(position));
-        highRatingMovieViewHolder.getBinding()
-                .ivHighRatingCover
-                .setTag(position);
 
         return convertView;
     }

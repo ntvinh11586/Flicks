@@ -18,6 +18,8 @@ import com.coderschool.vinh.flicks.models.NowPlaying;
 import com.coderschool.vinh.flicks.utils.RetrofitUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,17 +27,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener{
-    private static final String TAG = "MainActivityTag";
+        SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = "MainActivity";
     static private final String EXTRA_TRAILER = "id";
     static private final String EXTRA_MOVIE = "movie";
 
-    private MovieApi mMovieApi;
-    private NowPlaying nowPlaying;
-
-    private ActivityMainBinding binding;
-
+    private MovieApi movieApi;
     private MovieAdapter movieAdapter;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +44,12 @@ public class MainActivity extends AppCompatActivity
         binding.lvMovie.setOnItemClickListener(this);
         binding.swipe.setColorSchemeResources(android.R.color.holo_blue_dark);
         binding.swipe.setOnRefreshListener(this);
+        binding.swipe.setRefreshing(true);
 
         movieAdapter = new MovieAdapter(this, new ArrayList<Movie>());
         binding.lvMovie.setAdapter(movieAdapter);
 
-        mMovieApi = RetrofitUtils
+        movieApi = RetrofitUtils
                 .getMovie(getString(R.string.api_key))
                 .create(MovieApi.class);
 
@@ -58,7 +58,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Movie movie = nowPlaying.getMovies().get(position);
+        Movie movie = movieAdapter.getItem(position);
+
+        if (movie == null) {
+            return;
+        }
+
         if (movie.isHighRatingMovie()) {
             Intent intent = new Intent(MainActivity.this, TrailerActivity.class)
                     .putExtra(EXTRA_TRAILER, movie.getId());
@@ -76,28 +81,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void fetchMovies() {
-        // Call -> enqueue() - async(), execute() - sync()
-        mMovieApi.getNowPlaying().enqueue(new Callback<NowPlaying>() {
-            @Override
-            public void onResponse(Call<NowPlaying> call, Response<NowPlaying> response) {
-                handleResponse(response);
-            }
+        movieApi.getNowPlaying()
+                .enqueue(new Callback<NowPlaying>() {
+                    @Override
+                    public void onResponse(Call<NowPlaying> call,
+                                           Response<NowPlaying> response) {
+                        NowPlaying nowPlaying = response.body();
+                        List<Movie> movies = nowPlaying.getMovies();
 
-            @Override
-            public void onFailure(Call<NowPlaying> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
-            }
-        });
-    }
+                        movieAdapter.clear();
+                        movieAdapter.addAll(movies);
 
-    private void handleResponse(Response<NowPlaying> response) {
-        // response.body() structure depends on T in Response<T>
-        nowPlaying = response.body();
-        movieAdapter.clear();
-        movieAdapter.addAll(nowPlaying.getMovies());
+                        if (binding.swipe.isRefreshing()) {
+                            binding.swipe.setRefreshing(false);
+                        }
+                    }
 
-        if (binding.swipe.isRefreshing()) {
-            binding.swipe.setRefreshing(false);
-        }
+                    @Override
+                    public void onFailure(Call<NowPlaying> call, Throwable t) {
+                        Log.e(TAG, Arrays.toString(t.getStackTrace()));
+                    }
+                });
     }
 }

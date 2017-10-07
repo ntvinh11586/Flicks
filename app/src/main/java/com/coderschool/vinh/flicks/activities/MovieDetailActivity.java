@@ -20,9 +20,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-        binding.setMovie((Movie) getIntent()
-                .getSerializableExtra(EXTRA_MOVIE)
-        );
+
+        Movie movie = (Movie) getIntent()
+                .getSerializableExtra(EXTRA_MOVIE);
+        binding.setMovie(movie);
     }
 
     public void onCoverClick(View view) {
